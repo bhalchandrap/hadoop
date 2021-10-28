@@ -1,11 +1,11 @@
 # High Performance S3 InputStream
 
 ## Overview
-This document describes how S3EInputStream works. There are two main goals of this documentation:
+This document describes how S3EInputStream works. There are two main goals of this document:
 1. Make it easier to understand the current implementation in this folder.
 1. Be useful in applying the underlying technique to other Hadoop file systems.
 
-This document is divided into two high level areas. The first part explains important concepts. The second part describes components involved in the implementation in this folder.
+This document is divided into two high level areas. The first part explains important high level concepts. The second part describes components involved in the implementation in this folder. The components are further divided into two sub sections: those independent of S3 and those that are specific to S3.
 
 Moreover, this blog provides some performance numbers and addtional high level information: https://medium.com/pinterest-engineering/improving-efficiency-and-reducing-runtime-using-s3-read-optimization-b31da4b60fa0
 
@@ -15,11 +15,11 @@ The main motivation behind implementing this feature is to improve performance w
 
 ## Basic Concepts
 
-- File : A binary blob of data stored on some storage device.
-- Split : A contiguous portion of a file. Each file is made up of one or more splits. Each split is a contiguous blob of data processed by a single job.
-- Block : Similar to a split but much smaller. Each split is made up of a number of blocks. The size of the first n-1 blocks is same. The size of the last block may be same or smaller.
-- Block based reading : The granularity of read is one block. That is, we read an entire block and return or none at all. Multiple blocks may be read in parallel.
-- Position within a file : The current read position in a split is a 0 based offset relative to the start of the split. Given that the first n-1 blocks of a split are guaranteed to be of the same size, the current position can also be denoted as the 0 based number of the current block and the 0 based offset within the current block.
+- **File** : A binary blob of data stored on some storage device.
+- **Split** : A contiguous portion of a file. Each file is made up of one or more splits. Each split is a contiguous blob of data processed by a single job.
+- **Block** : Similar to a split but much smaller. Each split is made up of a number of blocks. The size of the first n-1 blocks is same. The size of the last block may be same or smaller.
+- **Block based reading** : The granularity of read is one block. That is, we read an entire block and return or none at all. Multiple blocks may be read in parallel.
+- **Position within a file** : The current read position in a split is a 0 based offset relative to the start of the split. Given that the first n-1 blocks of a split are guaranteed to be of the same size, the current position can also be denoted as the 0 based number of the current block and the 0 based offset within the current block.
 
 ## Components
 
