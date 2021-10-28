@@ -31,7 +31,8 @@ The following components are not really tied to S3 file system. They can be used
 
 #### Block related functionality
 
-- BlockData.java : Holds metadata about blocks of data in a file. For example, number of blocks in a given file, the start offset of each block, etc. Also holds the state of the block at a glance (whether it is yet to be read, already cached locally, etc).
+- BlockData.java :
+Holds metadata about blocks of data in a file. For example, number of blocks in a given file, the start offset of each block, etc. Also holds the state of the block at a glance (whether it is yet to be read, already cached locally, etc).
 - BufferData.java : Holds the state of a ByteBuffer that is currently in use. Each such buffer holds exactly one block in memory. The maximum number of such buffers and the size of each buffer is fixed during runtime (but configurable at start).
 - FilePosition.java : Functionality related to tracking the position within a file (as relative offset from current block start).
 - S3BlockCache.java : Despite the S3 in its name, this is simply an interface for a cache of blocks.
