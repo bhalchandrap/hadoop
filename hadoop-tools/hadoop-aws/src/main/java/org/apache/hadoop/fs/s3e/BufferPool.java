@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CancellationException;
 
 /**
  * Manages a fixed pool of {@code ByteBuffer} instances.
@@ -209,7 +210,7 @@ public class BufferPool implements Closeable {
     for (BufferData data : this.getAll()) {
       Future<Void> actionFuture = data.getActionFuture();
       if (actionFuture != null) {
-        actionFuture.cancel();
+        actionFuture.raise(new CancellationException("BufferPool is closing."));
       }
     }
 
