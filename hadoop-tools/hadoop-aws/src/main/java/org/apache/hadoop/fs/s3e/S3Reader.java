@@ -19,8 +19,8 @@
 
 package org.apache.hadoop.fs.s3e;
 
-import org.apache.hadoop.fs.s3e.Io;
-import org.apache.hadoop.fs.s3e.Validate;
+import org.apache.hadoop.fs.common.Io;
+import org.apache.hadoop.fs.common.Validate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

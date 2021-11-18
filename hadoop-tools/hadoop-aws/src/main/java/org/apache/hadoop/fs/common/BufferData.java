@@ -17,9 +17,9 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.common;
 
-import org.apache.hadoop.fs.s3e.Validate;
+import org.apache.hadoop.fs.common.Validate;
 
 import com.twitter.util.Await;
 import com.twitter.util.Future;
@@ -44,10 +44,10 @@ import java.util.zip.CRC32;
  * Holding all of the state associated with a block allows us to validate and control
  * state transitions in a synchronized fashion.
  */
-class BufferData {
+public class BufferData {
   private static final Logger LOG = LoggerFactory.getLogger(BufferData.class);
 
-  enum State {
+  public enum State {
     // Unknown / invalid state.
     UNKNOWN,
 

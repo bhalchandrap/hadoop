@@ -17,12 +17,10 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.common;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import org.apache.hadoop.fs.s3e.ExceptionAsserts;
 
 import org.junit.Test;
 

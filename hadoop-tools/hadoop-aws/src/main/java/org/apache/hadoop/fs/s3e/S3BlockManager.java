@@ -19,7 +19,9 @@
 
 package org.apache.hadoop.fs.s3e;
 
-import org.apache.hadoop.fs.s3e.Validate;
+import org.apache.hadoop.fs.common.BlockData;
+import org.apache.hadoop.fs.common.BufferData;
+import org.apache.hadoop.fs.common.Validate;
 
 import java.io.Closeable;
 import java.io.IOException;

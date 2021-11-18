@@ -17,9 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
-
-import org.apache.hadoop.fs.s3e.Validate;
+package org.apache.hadoop.fs.common;
 
 import com.twitter.util.Future;
 import org.slf4j.Logger;
@@ -239,13 +237,13 @@ public class BufferPool implements Closeable {
 
   // Number of ByteBuffers created so far.
   // @VisibleForTesting
-  synchronized int numCreated() {
+  public synchronized int numCreated() {
     return this.pool.numCreated();
   }
 
   // Number of ByteBuffers available to be acquired.
   // @VisibleForTesting
-  synchronized int numAvailable() {
+  public synchronized int numAvailable() {
     this.releaseDoneBlocks();
     return this.pool.numAvailable();
   }

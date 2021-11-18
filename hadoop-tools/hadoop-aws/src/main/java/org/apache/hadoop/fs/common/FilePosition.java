@@ -17,9 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
-
-import org.apache.hadoop.fs.s3e.Validate;
+package org.apache.hadoop.fs.common;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.common;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

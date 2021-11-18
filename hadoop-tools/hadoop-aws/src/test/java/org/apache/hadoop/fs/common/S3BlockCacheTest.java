@@ -17,11 +17,9 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.common;
 
 import static org.junit.Assert.*;
-
-import org.apache.hadoop.fs.s3e.ExceptionAsserts;
 
 import com.twitter.util.Await;
 import com.twitter.util.ExceptionalFunction0;

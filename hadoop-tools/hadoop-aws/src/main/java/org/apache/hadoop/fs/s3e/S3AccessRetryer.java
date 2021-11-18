@@ -19,7 +19,7 @@
 
 package org.apache.hadoop.fs.s3e;
 
-import org.apache.hadoop.fs.s3e.Validate;
+import org.apache.hadoop.fs.common.Validate;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;

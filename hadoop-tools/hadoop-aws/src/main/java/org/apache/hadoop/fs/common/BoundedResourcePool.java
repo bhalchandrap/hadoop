@@ -17,9 +17,9 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.common;
 
-import org.apache.hadoop.fs.s3e.Validate;
+import org.apache.hadoop.fs.common.Validate;
 
 import java.io.Closeable;
 import java.util.Collections;

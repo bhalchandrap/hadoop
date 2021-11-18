@@ -17,10 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
-
-import org.apache.hadoop.fs.s3e.ExceptionAsserts;
-import org.apache.hadoop.fs.s3e.TestData;
+package org.apache.hadoop.fs.common;
 
 import org.junit.Test;
 

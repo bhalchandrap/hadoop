@@ -19,8 +19,8 @@
 
 package org.apache.hadoop.fs.s3e;
 
-import org.apache.hadoop.fs.s3e.Validate;
-import org.apache.hadoop.fs.s3e.Io;
+import org.apache.hadoop.fs.common.Validate;
+import org.apache.hadoop.fs.common.Io;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GetObjectRequest;

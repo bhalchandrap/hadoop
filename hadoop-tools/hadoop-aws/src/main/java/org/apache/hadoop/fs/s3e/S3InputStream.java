@@ -19,7 +19,9 @@
 
 package org.apache.hadoop.fs.s3e;
 
-import org.apache.hadoop.fs.s3e.Validate;
+import org.apache.hadoop.fs.common.BlockData;
+import org.apache.hadoop.fs.common.FilePosition;
+import org.apache.hadoop.fs.common.Validate;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;

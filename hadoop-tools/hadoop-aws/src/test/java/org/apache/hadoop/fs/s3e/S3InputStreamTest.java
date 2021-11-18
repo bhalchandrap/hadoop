@@ -21,7 +21,7 @@ package org.apache.hadoop.fs.s3e;
 
 import static org.junit.Assert.*;
 
-import org.apache.hadoop.fs.s3e.ExceptionAsserts;
+import org.apache.hadoop.fs.common.ExceptionAsserts;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;

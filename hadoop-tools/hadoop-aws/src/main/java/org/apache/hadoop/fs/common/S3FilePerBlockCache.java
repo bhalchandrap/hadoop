@@ -17,9 +17,9 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.common;
 
-import org.apache.hadoop.fs.s3e.Validate;
+import org.apache.hadoop.fs.common.Validate;
 
 import com.twitter.util.ExceptionalFunction0;
 import org.slf4j.Logger;

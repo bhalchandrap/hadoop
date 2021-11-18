@@ -19,8 +19,14 @@
 
 package org.apache.hadoop.fs.s3e;
 
-import org.apache.hadoop.fs.s3e.Validate;
-import org.apache.hadoop.fs.s3e.Io;
+import org.apache.hadoop.fs.common.BlockData;
+import org.apache.hadoop.fs.common.BufferData;
+import org.apache.hadoop.fs.common.BufferPool;
+import org.apache.hadoop.fs.common.Io;
+import org.apache.hadoop.fs.common.Retryer;
+import org.apache.hadoop.fs.common.S3BlockCache;
+import org.apache.hadoop.fs.common.S3FilePerBlockCache;
+import org.apache.hadoop.fs.common.Validate;
 
 import com.twitter.util.Await;
 import com.twitter.util.ExceptionalFunction0;

@@ -19,6 +19,8 @@
 
 package org.apache.hadoop.fs.s3e;
 
+import org.apache.hadoop.fs.common.BufferData;
+
 import com.amazonaws.services.s3.AmazonS3;
 import com.twitter.util.FuturePool;
 import org.slf4j.Logger;

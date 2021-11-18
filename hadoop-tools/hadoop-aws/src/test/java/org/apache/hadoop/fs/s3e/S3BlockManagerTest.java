@@ -21,7 +21,9 @@ package org.apache.hadoop.fs.s3e;
 
 import static org.junit.Assert.*;
 
-import org.apache.hadoop.fs.s3e.ExceptionAsserts;
+import org.apache.hadoop.fs.common.BlockData;
+import org.apache.hadoop.fs.common.BufferData;
+import org.apache.hadoop.fs.common.ExceptionAsserts;
 
 import org.junit.Test;
 

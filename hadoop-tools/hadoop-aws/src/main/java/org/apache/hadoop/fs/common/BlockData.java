@@ -17,9 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
-
-import org.apache.hadoop.fs.s3e.Validate;
+package org.apache.hadoop.fs.common;
 
 /**
  * Holds information about blocks of data in an S3 file.
