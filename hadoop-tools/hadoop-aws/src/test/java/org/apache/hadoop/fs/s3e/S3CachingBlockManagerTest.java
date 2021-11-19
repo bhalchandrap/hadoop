@@ -119,7 +119,7 @@ public class S3CachingBlockManagerTest {
     public boolean forceNextReadToFail;
 
     @Override
-    protected int read(ByteBuffer buffer, long offset, int size) throws IOException {
+    public int read(ByteBuffer buffer, long offset, int size) throws IOException {
       if (forceNextReadToFail) {
         forceNextReadToFail = false;
         throw new RuntimeException("foo");

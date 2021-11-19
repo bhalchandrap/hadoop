@@ -20,7 +20,7 @@
 package org.apache.hadoop.fs.s3e;
 
 import org.apache.hadoop.fs.common.BlockData;
-import org.apache.hadoop.fs.common.BufferData;
+import org.apache.hadoop.fs.common.BlockManager;
 import org.apache.hadoop.fs.common.Validate;
 
 import java.io.Closeable;
@@ -28,15 +28,15 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
- * Provides access to S3 file one block at a time.
+ * Provides read access to S3 file one block at a time.
+ *
+ * A naive implementation of a {@code BlockManager} that provides no prefetching or caching.
+ * Useful baseline for comparing performance difference against {@code S3CachingBlockManager}.
  */
-public class S3BlockManager implements Closeable {
+public class S3BlockManager extends BlockManager {
 
   // Reader that reads from S3 file.
   protected S3Reader reader;
-
-  // Information about each block of the S3 file.
-  protected BlockData blockData;
 
   /**
    * Constructs an instance of {@code S3BlockManager}.
@@ -45,63 +45,29 @@ public class S3BlockManager implements Closeable {
    * @param blockData information about each block of the S3 file.
    */
   public S3BlockManager(S3Reader reader, BlockData blockData) {
+    super(blockData);
+
     Validate.checkNotNull(reader, "reader");
-    Validate.checkNotNull(blockData, "blockData");
 
     this.reader = reader;
-    this.blockData = blockData;
   }
 
   /**
-   * Gets the block having the given {@code blockNumber}.
-   * The entire block is read into memory and returned as a {@code BufferData}.
-   * The blocks are treated as a limited resource and must be released when
-   * one is done reading them.
+   * Reads into the given {@code buffer} {@code size} bytes from the underlying file
+   * starting at {@code startOffset}.
+   *
+   * @param buffer the buffer to read data in to.
+   * @param startOffset the offset at which reading starts.
+   * @param size the number bytes to read.
+   * @return number of bytes read.
    */
-  public BufferData get(int blockNumber) throws IOException {
-    Validate.checkNotNegative(blockNumber, "blockNumber");
-
-    int size = this.blockData.getSize(blockNumber);
-    ByteBuffer buffer = ByteBuffer.allocate(size);
-    long startOffset = this.blockData.getStartOffset(blockNumber);
-    this.reader.read(buffer, startOffset, size);
-    buffer.flip();
-    return new BufferData(blockNumber, buffer);
-  }
-
-  /**
-   * Releases resources allocated to the given block.
-   */
-  public void release(BufferData data) {
-    Validate.checkNotNull(data, "data");
-
-    // Do nothing because we allocate a new buffer each time.
-  }
-
-  /**
-   * Requests optional prefetching of the given block.
-   */
-  public void requestPrefetch(int blockNumber) {
-    Validate.checkNotNegative(blockNumber, "blockNumber");
-
-    // Do nothing because we do not support prefetches.
-  }
-
-  /**
-   * Requests cancellation of any previously issued prefetch requests.
-   */
-  public void cancelPrefetches() {
-    // Do nothing because we do not support prefetches.
-  }
-
-  /**
-   * Requests that the given block should be copied to the cache. Optional operation.
-   */
-  public void requestCaching(BufferData data) {
-    // Do nothing because we do not support caching.
+  @Override
+  public int read(ByteBuffer buffer, long startOffset, int size) throws IOException {
+    return this.reader.read(buffer, startOffset, size);
   }
 
   @Override
   public void close() {
+    this.reader.close();
   }
 }

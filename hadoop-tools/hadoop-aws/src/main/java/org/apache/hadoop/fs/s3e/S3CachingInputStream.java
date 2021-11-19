@@ -20,6 +20,7 @@
 package org.apache.hadoop.fs.s3e;
 
 import org.apache.hadoop.fs.common.BlockData;
+import org.apache.hadoop.fs.common.BlockManager;
 import org.apache.hadoop.fs.common.BufferData;
 import org.apache.hadoop.fs.common.Validate;
 
@@ -42,7 +43,7 @@ public class S3CachingInputStream extends S3InputStream {
   // Number of blocks queued for prefching.
   private int numBlocksToPrefetch;
 
-  private S3BlockManager blockManager;
+  private BlockManager blockManager;
 
   public S3CachingInputStream(
       FuturePool futurePool,
@@ -164,7 +165,7 @@ public class S3CachingInputStream extends S3InputStream {
   }
 
   // @VisibleForTesting
-  protected S3BlockManager createBlockManager(
+  protected BlockManager createBlockManager(
       FuturePool futurePool,
       S3Reader reader,
       BlockData blockData,

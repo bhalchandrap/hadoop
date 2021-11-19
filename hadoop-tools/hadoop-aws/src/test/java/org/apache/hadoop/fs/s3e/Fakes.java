@@ -128,7 +128,7 @@ public class Fakes {
     }
 
     @Override
-    protected int read(ByteBuffer buffer, long offset, int size) throws IOException {
+    public int read(ByteBuffer buffer, long offset, int size) throws IOException {
       randomDelay(100);
       return this.reader.read(buffer, offset, size);
     }
@@ -159,7 +159,7 @@ public class Fakes {
     }
 
     @Override
-    protected S3BlockManager createBlockManager(
+    protected S3CachingBlockManager createBlockManager(
         FuturePool futurePool,
         S3Reader reader,
         BlockData blockData,
