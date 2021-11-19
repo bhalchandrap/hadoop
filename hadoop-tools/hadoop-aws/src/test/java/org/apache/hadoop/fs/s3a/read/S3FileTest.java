@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.s3a.read;
 
 import static org.junit.Assert.*;
 
@@ -29,7 +29,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 public class S3FileTest {
-  private final AmazonS3 client = Clients.getInstance().createDefaultRetryingClient();
+  private final AmazonS3 client = TestS3File.createClient("bucket");
 
   @Test
   public void testArgChecks() {

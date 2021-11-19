@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.s3a.read;
 
 import static org.junit.Assert.*;
 
@@ -43,7 +43,7 @@ public class S3InputStreamTest {
   private final int fileSize = 10;
   private final ExecutorService threadPool = Executors.newFixedThreadPool(4);
   private final FuturePool futurePool = new ExecutorServiceFuturePool(threadPool);
-  private final AmazonS3 client = Clients.getInstance().createDefaultRetryingClient();
+  private final AmazonS3 client = TestS3File.createClient("bucket");
 
   @Test
   public void testRead0SizedFile() throws Exception {

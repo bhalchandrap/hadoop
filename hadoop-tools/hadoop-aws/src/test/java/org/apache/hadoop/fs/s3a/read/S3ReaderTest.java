@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.s3a.read;
 
 import static org.junit.Assert.*;
 

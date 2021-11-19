@@ -17,16 +17,18 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
-
-import org.apache.hadoop.fs.common.Validate;
+package org.apache.hadoop.fs.s3a.read;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import org.apache.hadoop.fs.common.Validate;
+import org.apache.hadoop.fs.s3a.MockS3ClientFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 class TestS3File extends S3File {
   private int size;
@@ -41,7 +43,7 @@ class TestS3File extends S3File {
   }
 
   public TestS3File(int size, boolean throwExceptionOnOpen) {
-    super(Clients.getInstance().createDefaultRetryingClient(), "bucket", "key", size);
+    super(createClient("bucket"), "bucket", "key", size);
 
     this.size = size;
     this.throwExceptionOnOpen = throwExceptionOnOpen;
@@ -76,5 +78,14 @@ class TestS3File extends S3File {
 
   public static byte byteAtOffset(int offset) {
     return (byte) (offset % 128);
+  }
+
+  public static AmazonS3 createClient(String bucketName) {
+    String uriString = String.format("s3a://%s/", bucketName);
+    try {
+      return new MockS3ClientFactory().createS3Client(new URI(uriString), null);
+    } catch (URISyntaxException e) {
+      return null;
+    }
   }
 }

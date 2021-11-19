@@ -19,9 +19,9 @@
 
 package org.apache.hadoop.fs.s3e;
 
-import org.apache.hadoop.fs.s3e.S3CachingInputStream;
-import org.apache.hadoop.fs.s3e.S3InMemoryInputStream;
-import org.apache.hadoop.fs.s3e.S3InputStream;
+import org.apache.hadoop.fs.s3a.read.S3CachingInputStream;
+import org.apache.hadoop.fs.s3a.read.S3InMemoryInputStream;
+import org.apache.hadoop.fs.s3a.read.S3InputStream;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.twitter.util.FuturePool;
