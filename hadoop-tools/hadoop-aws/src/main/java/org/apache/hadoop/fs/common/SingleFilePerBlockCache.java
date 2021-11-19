@@ -47,11 +47,11 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Provides functionality necessary for caching blocks of data read from S3.
+ * Provides functionality necessary for caching blocks of data read from FileSystem.
  * Each cache block is stored on the local disk as a separate file.
  */
-public class S3FilePerBlockCache implements S3BlockCache {
-  private static final Logger LOG = LoggerFactory.getLogger(S3FilePerBlockCache.class);
+public class SingleFilePerBlockCache implements BlockCache {
+  private static final Logger LOG = LoggerFactory.getLogger(SingleFilePerBlockCache.class);
 
   // Blocks stored in this cache.
   private Map<Integer, Entry> blocks = new ConcurrentHashMap<>();
@@ -85,7 +85,7 @@ public class S3FilePerBlockCache implements S3BlockCache {
     }
   }
 
-  public S3FilePerBlockCache() {
+  public SingleFilePerBlockCache() {
   }
 
   /**
@@ -299,7 +299,7 @@ public class S3FilePerBlockCache implements S3BlockCache {
     return sb.toString();
   }
 
-  private static final String CACHE_FILE_PREFIX = "s3cache-";
+  private static final String CACHE_FILE_PREFIX = "fs-cache-";
 
   public static boolean isCacheSpaceAvailable(long fileSize) {
     try {

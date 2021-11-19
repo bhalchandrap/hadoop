@@ -20,8 +20,8 @@
 package org.apache.hadoop.fs.s3e;
 
 import org.apache.hadoop.fs.common.BlockData;
-import org.apache.hadoop.fs.common.S3BlockCache;
-import org.apache.hadoop.fs.common.S3FilePerBlockCache;
+import org.apache.hadoop.fs.common.BlockCache;
+import org.apache.hadoop.fs.common.SingleFilePerBlockCache;
 import org.apache.hadoop.fs.common.Validate;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -65,7 +65,7 @@ public class Fakes {
     }
   }
 
-  public static class TestS3FilePerBlockCache extends S3FilePerBlockCache {
+  public static class TestS3FilePerBlockCache extends SingleFilePerBlockCache {
     private final Map<Path, byte[]> files;
     private final int readDelay;
     private final int writeDelay;
@@ -134,7 +134,7 @@ public class Fakes {
     }
 
     @Override
-    protected S3BlockCache createCache() {
+    protected BlockCache createCache() {
       final int readDelayMs = 50;
       final int writeDelayMs = 200;
       return new TestS3FilePerBlockCache(readDelayMs, writeDelayMs);

@@ -28,11 +28,11 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-public class S3BlockCacheTest {
+public class BlockCacheTest {
   @Test
   public void testArgChecks() {
     // Should not throw.
-    S3BlockCache cache = new S3FilePerBlockCache();
+    BlockCache cache = new SingleFilePerBlockCache();
 
     ByteBuffer buffer = ByteBuffer.allocate(16);
 
@@ -57,7 +57,7 @@ public class S3BlockCacheTest {
 
   @Test
   public void testPutAndGet() throws Exception {
-    S3BlockCache cache = new S3FilePerBlockCache();
+    BlockCache cache = new SingleFilePerBlockCache();
 
     ByteBuffer buffer1 = ByteBuffer.allocate(BUFFER_SIZE);
     for (byte i = 0; i < BUFFER_SIZE; i++) {

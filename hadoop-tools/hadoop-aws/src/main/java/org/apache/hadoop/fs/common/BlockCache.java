@@ -26,9 +26,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
- * Provides functionality necessary for caching blocks of data read from S3.
+ * Provides functionality necessary for caching blocks of data read from FileSystem.
  */
-public interface S3BlockCache extends Closeable {
+public interface BlockCache extends Closeable {
 
   /**
    * Indicates whether the given block is in this cache.

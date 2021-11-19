@@ -19,13 +19,14 @@
 
 package org.apache.hadoop.fs.s3e;
 
+import org.apache.hadoop.fs.common.BlockCache;
 import org.apache.hadoop.fs.common.BlockData;
+import org.apache.hadoop.fs.common.BlockOperations;
 import org.apache.hadoop.fs.common.BufferData;
 import org.apache.hadoop.fs.common.BufferPool;
 import org.apache.hadoop.fs.common.Io;
 import org.apache.hadoop.fs.common.Retryer;
-import org.apache.hadoop.fs.common.S3BlockCache;
-import org.apache.hadoop.fs.common.S3FilePerBlockCache;
+import org.apache.hadoop.fs.common.SingleFilePerBlockCache;
 import org.apache.hadoop.fs.common.Validate;
 
 import com.twitter.util.Await;
@@ -57,7 +58,7 @@ public class S3CachingBlockManager extends S3BlockManager {
   protected int bufferPoolSize;
 
   // Local block cache.
-  private S3BlockCache cache;
+  private BlockCache cache;
 
   // Error counts. For testing purposes.
   private AtomicInteger numCachingErrors;
@@ -495,8 +496,8 @@ public class S3CachingBlockManager extends S3BlockManager {
   }
 
   // @VisibleForTesting
-  protected S3BlockCache createCache() {
-    return new S3FilePerBlockCache();
+  protected BlockCache createCache() {
+    return new SingleFilePerBlockCache();
   }
 
   // @VisibleForTesting

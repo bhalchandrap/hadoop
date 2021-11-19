@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 public class BlockOperations {
   private static final Logger LOG = LoggerFactory.getLogger(BlockOperations.class);
 
-  enum Kind {
+  public enum Kind {
     UNKNOWN("??", "unknown", false),
     CANCEL_PREFETCHES("CP", "cancelPrefetches", false),
     CLOSE("CX", "close", false),
@@ -76,7 +76,7 @@ public class BlockOperations {
     }
   }
 
-  static class Operation {
+  public static class Operation {
     public final Kind kind;
     public final int blockNumber;
     public final long timestamp;
@@ -104,7 +104,7 @@ public class BlockOperations {
     }
   }
 
-  static class End extends Operation {
+  public static class End extends Operation {
     private Operation op;
 
     public End(Operation op) {
@@ -131,11 +131,11 @@ public class BlockOperations {
   private ArrayList<Operation> ops;
   private boolean debugMode;
 
-  BlockOperations() {
+  public BlockOperations() {
     this.ops = new ArrayList<>();
   }
 
-  void setDebug(boolean state) {
+  public void setDebug(boolean state) {
     this.debugMode = state;
   }
 
