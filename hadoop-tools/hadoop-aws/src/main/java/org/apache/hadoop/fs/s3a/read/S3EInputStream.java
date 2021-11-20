@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.hadoop.fs.s3e;
+package org.apache.hadoop.fs.s3a.read;
 
 import org.apache.hadoop.fs.s3a.read.S3CachingInputStream;
 import org.apache.hadoop.fs.s3a.read.S3InMemoryInputStream;
