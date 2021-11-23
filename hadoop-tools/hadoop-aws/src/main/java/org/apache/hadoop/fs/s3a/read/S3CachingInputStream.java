@@ -60,6 +60,7 @@ public class S3CachingInputStream extends S3InputStream {
     int bufferPoolSize = numBlocksToPrefetch + 1;
     this.blockManager =
         this.createBlockManager(futurePool, reader, this.blockData, bufferPoolSize);
+    LOG.debug("Created caching input stream for {}/{} (size = {})", bucket, key, fileSize);
   }
 
   /**

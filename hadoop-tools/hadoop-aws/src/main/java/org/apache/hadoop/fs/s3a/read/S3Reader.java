@@ -21,11 +21,11 @@ package org.apache.hadoop.fs.s3a.read;
 
 import org.apache.hadoop.fs.common.Io;
 import org.apache.hadoop.fs.common.Validate;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -107,7 +107,11 @@ public class S3Reader implements Closeable {
         return numBytesRead;
       } catch (Exception e) {
         if (!retryer.retry(e)) {
-          throw e;
+          if (e instanceof EOFException) {
+            return -1;
+          } else {
+            throw e;
+          }
         }
       }
     }
@@ -132,6 +136,13 @@ public class S3Reader implements Closeable {
       do {
         numBytesToRead = Math.min(READ_BUFFER_SIZE, numRemainingBytes);
         numBytes = inputStream.read(bytes, 0, numBytesToRead);
+        if (numBytes < 0) {
+          String message = String.format(
+              "Unexpected end of stream: buffer[%d], readSize = %d, numRemainingBytes = %d",
+              buffer.capacity(), readSize, numRemainingBytes);
+          throw new EOFException(message);
+        }
+
         if (numBytes > 0) {
           buffer.put(bytes, 0, numBytes);
           numRemainingBytes -= numBytes;

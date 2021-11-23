@@ -49,6 +49,7 @@ public class S3InMemoryInputStream extends S3InputStream {
       AmazonS3 client) {
     super(futurePool, (int) fileSize, bucket, key, fileSize, client);
     this.buffer = ByteBuffer.allocate((int) fileSize);
+    LOG.debug("Created in-memory input stream for {} (size = {})", this.name, fileSize);
   }
 
   @Override
@@ -65,7 +66,10 @@ public class S3InMemoryInputStream extends S3InputStream {
       try {
         S3Reader reader = new S3Reader(this.s3File);
         this.buffer.clear();
-        reader.read(buffer, 0, this.buffer.capacity());
+        int numBytesRead = reader.read(buffer, 0, this.buffer.capacity());
+        if (numBytesRead < 0) {
+          return false;
+        }
         BufferData data = new BufferData(0, buffer);
         this.fpos.setData(data, 0, this.seekTargetPos);
       } catch (IOException e) {
