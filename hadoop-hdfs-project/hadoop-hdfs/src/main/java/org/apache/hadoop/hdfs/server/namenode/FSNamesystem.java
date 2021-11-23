@@ -462,8 +462,7 @@ public class FSNamesystem implements Namesystem, FSNamesystemMBean,
 
   private void appendClientPortToCallerContextIfAbsent() {
     final CallerContext ctx = CallerContext.getCurrent();
-    if (isClientPortInfoAbsent(CLIENT_PORT_STR + ":" + Server.getRemotePort(),
-        ctx)) {
+    if (isClientPortInfoAbsent(ctx)) {
       String origContext = ctx == null ? null : ctx.getContext();
       byte[] origSignature = ctx == null ? null : ctx.getSignature();
       CallerContext.setCurrent(
@@ -474,9 +473,9 @@ public class FSNamesystem implements Namesystem, FSNamesystemMBean,
     }
   }
 
-  private boolean isClientPortInfoAbsent(String clientPortInfo, CallerContext ctx){
+  private boolean isClientPortInfoAbsent(CallerContext ctx){
     return ctx == null || ctx.getContext() == null
-        || !ctx.getContext().contains(clientPortInfo);
+        || !ctx.getContext().contains(CLIENT_PORT_STR);
   }
 
   /**
@@ -4422,8 +4421,11 @@ public class FSNamesystem implements Namesystem, FSNamesystemMBean,
           haContext.getState().getServiceState(),
           getFSImage().getCorrectLastAppliedOrWrittenTxId());
 
+      Set<String> slownodes = DatanodeManager.getSlowNodesUuidSet();
+      boolean isSlownode = slownodes.contains(nodeReg.getDatanodeUuid());
+
       return new HeartbeatResponse(cmds, haState, rollingUpgradeInfo,
-          blockReportLeaseId);
+          blockReportLeaseId, isSlownode);
     } finally {
       readUnlock("handleHeartbeat");
     }
